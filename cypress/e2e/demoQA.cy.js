@@ -11,7 +11,7 @@ describe("tests", () => {
     });
     cy.visit("/automation-practice-form");
   });
-  it("Valid Student Registration With Complete Data", () => {
+  it("Valid Student Registration With Complete Data - TC_01", () => {
     cy.get(formSelectors.name).click().type("John");
     cy.get(formSelectors.lastName).click().type("Smith");
     cy.get(formSelectors.email).click().type("test@gmail.com");
@@ -50,8 +50,9 @@ describe("tests", () => {
       cy.get("td").eq(17).contains("Azalia str 23, 77222 Massachusetts");
       cy.get("td").eq(19).contains("Uttar Pradesh Lucknow");
     });
+    cy.get(formSelectors.closeTable).click();
   });
-  it("Valid Student Registration With Required Data", () => {
+  it("Valid Student Registration With Required Data - TC_02", () => {
     cy.get(formSelectors.name).click().type("Jane");
     cy.get(formSelectors.lastName).click().type("Smith");
     cy.get(formSelectors.mobile).click().type("9876543210");
@@ -63,23 +64,81 @@ describe("tests", () => {
       cy.get("td").eq(7).contains("9876543210");
       cy.get("td").eq(5).contains("Female");
     });
+    cy.get(formSelectors.closeTable).click();
   });
-  it("Lack of First Name", () => {
+  it("Lack of First Name - TC_EX_01", () => {
     cy.get(formSelectors.lastName).click().type("Smith");
     cy.get(formSelectors.mobile).click().type("0500500500");
     cy.get(formSelectors.gender2Female).click();
     cy.get(formSelectors.submit).click();
+    cy.get(formSelectors.submitMessage).should("not.exist");
     cy.get(formSelectors.name)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
   });
-  it("Lack of Last Name", () => {
+  it("Lack of Last Name - TC_EX_02", () => {
     cy.get(formSelectors.name).click().type("Jane");
     cy.get(formSelectors.mobile).click().type("0500500500");
     cy.get(formSelectors.gender2Female).click();
     cy.get(formSelectors.submit).click();
+    cy.get(formSelectors.submitMessage).should("not.exist");
     cy.get(formSelectors.lastName)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
+  });
+  it.only("Lack of Gender - TC_EX_03", () => {
+    cy.get(formSelectors.name).click().type("Jane");
+    cy.get(formSelectors.lastName).click().type("Smith");
+    cy.get(formSelectors.mobile).click().type("9876543210");
+    cy.get(formSelectors.submit).click();
+    cy.get(formSelectors.submitMessage).should("not.exist");
+    //fix below
+
+    //cy.get(formSelectors.gender1Male).should("have.attr", "false");
+    cy.get(formSelectors.gender1Male).should("be.invalid");
+    cy.get(["invalid"]);
+    cy.get(formSelectors.gender1Male)
+      .then(($el) => $el[0].checkValidity())
+      .should("be.false");
+    cy.get(formSelectors.gender2Female)
+      .then(($el) => $el[0].checkValidity())
+      .should("be.false");
+    cy.get(formSelectors.gender3Other)
+      .then(($el) => $el[0].checkValidity())
+      .should("be.false");
+  });
+  it('Lack of data in "Mobile" field - TC_EX_04', () => {
+    cy.get(formSelectors.name).click().type("Jane");
+    cy.get(formSelectors.lastName).click().type("Smith");
+    cy.get(formSelectors.gender2Female).click();
+    cy.get(formSelectors.submit).click();
+    cy.get(formSelectors.submitMessage).should("not.exist");
+    cy.get(formSelectors.mobile)
+      .then(($el) => $el[0].checkValidity())
+      .should("be.false");
+  });
+  it.only('String in "Mobile" field - TC_EX_05', () => {
+    cy.get(formSelectors.name).click().type("Jane");
+    cy.get(formSelectors.lastName).click().type("Smith");
+    cy.get(formSelectors.mobile).click().type("ABCDEFGHIJ");
+    cy.get(formSelectors.gender2Female).click();
+    cy.get(formSelectors.submit).click();
+    cy.get(formSelectors.submitMessage).should("not.exist");
+    cy.get(formSelectors.mobile)
+      .then(($el) => $el[0].checkValidity())
+      .should("be.false");
+  });
+  it('Invalid data in "Date of birth" field - TC_EX_06', () => {
+    cy.get(formSelectors.name).click().type("Jane");
+    cy.get(formSelectors.lastName).click().type("Smith");
+    cy.get(formSelectors.mobile).click().type("9876543210");
+    cy.get(formSelectors.dateOfBirth).click();
+    cy.get(formSelectors.monthDropdown).select("January");
+    cy.get(formSelectors.yearDropdown).select("2030");
+    cy.get(formSelectors.dayOfTheMonth).click();
+    cy.get(formSelectors.background).click();
+    cy.get(formSelectors.gender2Female).click();
+    cy.get(formSelectors.submit).click();
+    cy.get(formSelectors.submitMessage).should("not.exist");
   });
 });

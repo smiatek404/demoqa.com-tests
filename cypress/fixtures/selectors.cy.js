@@ -22,4 +22,5 @@ export const formSelectors = {
   submit: "[id='submit']",
   submitMessage: "[id='example-modal-sizes-title-lg']",
   table: "[class='table-responsive']",
+  closeTable: "[id='closeLargeModal']",
 };
