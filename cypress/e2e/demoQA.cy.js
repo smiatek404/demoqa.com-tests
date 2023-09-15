@@ -92,20 +92,16 @@ describe("tests", () => {
     cy.get(formSelectors.mobile).click().type("9876543210");
     cy.get(formSelectors.submit).click();
     cy.get(formSelectors.submitMessage).should("not.exist");
-    //fix below
 
-    //cy.get(formSelectors.gender1Male).should("have.attr", "false");
-    cy.get(formSelectors.gender1Male).should("be.invalid");
-    cy.get(["invalid"]);
-    cy.get(formSelectors.gender1Male)
-      .then(($el) => $el[0].checkValidity())
-      .should("be.false");
-    cy.get(formSelectors.gender2Female)
-      .then(($el) => $el[0].checkValidity())
-      .should("be.false");
-    cy.get(formSelectors.gender3Other)
-      .then(($el) => $el[0].checkValidity())
-      .should("be.false");
+    cy.get(formSelectors.inputGender)
+      .find(".custom-control-input:invalid")
+      .should("have.length", 3)
+      .then(($el) => {
+        console.log("$el", $el);
+        console.log("$el[0]", $el[0]);
+        console.log("$el[1]", $el[1]);
+        console.log("$el[2]", $el[2]);
+      });
   });
   it('Lack of data in "Mobile" field - TC_EX_04', () => {
     cy.get(formSelectors.name).click().type("Jane");
@@ -117,7 +113,7 @@ describe("tests", () => {
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
   });
-  it.only('String in "Mobile" field - TC_EX_05', () => {
+  it('String in "Mobile" field - TC_EX_05', () => {
     cy.get(formSelectors.name).click().type("Jane");
     cy.get(formSelectors.lastName).click().type("Smith");
     cy.get(formSelectors.mobile).click().type("ABCDEFGHIJ");

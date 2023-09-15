@@ -2,6 +2,7 @@ export const formSelectors = {
   name: "[id='firstName']",
   lastName: "[id='lastName']",
   email: "[id='userEmail']",
+  inputGender: "[id='genterWrapper']",
   gender1Male: "[for='gender-radio-1']",
   gender2Female: "[for='gender-radio-2']",
   gender3Other: "[for='gender-radio-3']",
