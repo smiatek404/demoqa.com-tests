@@ -13,6 +13,7 @@ export const formSelectors = {
   dayOfTheMonth: "[class='react-datepicker__day react-datepicker__day--001']",
   background: "[class='form-file']",
   subjects: "[id='subjectsInput']",
+  subjectRemove: ".subjects-auto-complete__multi-value__remove",
   hobby1: "[for='hobbies-checkbox-1']",
   hobby2: "[for='hobbies-checkbox-2']",
   hobby3: "[for='hobbies-checkbox-3']",
