@@ -78,6 +78,11 @@ describe("tests", () => {
     cy.get(formSelectors.name)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
+    cy.get(formSelectors.name).should(
+      "have.css",
+      "border-color",
+      "rgb(220, 53, 69)"
+    );
   });
 
   it("Lack of Last Name - TC_EX_02", () => {
@@ -89,6 +94,11 @@ describe("tests", () => {
     cy.get(formSelectors.lastName)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
+    cy.get(formSelectors.lastName).should(
+      "have.css",
+      "border-color",
+      "rgb(220, 53, 69)"
+    );
   });
 
   it("Lack of Gender - TC_EX_03", () => {
@@ -126,6 +136,11 @@ describe("tests", () => {
     cy.get(formSelectors.mobile)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
+    cy.get(formSelectors.mobile).should(
+      "have.css",
+      "border-color",
+      "rgb(220, 53, 69)"
+    );
   });
 
   it('String in "Mobile" field - TC_EX_05', () => {
@@ -138,6 +153,11 @@ describe("tests", () => {
     cy.get(formSelectors.mobile)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
+    cy.get(formSelectors.mobile).should(
+      "have.css",
+      "border-color",
+      "rgb(220, 53, 69)"
+    );
   });
 
   it('Invalid data in "Date of birth" field - TC_EX_06', () => {
