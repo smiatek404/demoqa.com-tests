@@ -11,6 +11,7 @@ describe("tests", () => {
     });
     cy.visit("/automation-practice-form");
   });
+
   it("Valid Student Registration With Complete Data - TC_01", () => {
     cy.get(formSelectors.name).click().type("John");
     cy.get(formSelectors.lastName).click().type("Smith");
@@ -52,6 +53,7 @@ describe("tests", () => {
     });
     cy.get(formSelectors.closeTable).click();
   });
+
   it("Valid Student Registration With Required Data - TC_02", () => {
     cy.get(formSelectors.name).click().type("Jane");
     cy.get(formSelectors.lastName).click().type("Smith");
@@ -66,6 +68,7 @@ describe("tests", () => {
     });
     cy.get(formSelectors.closeTable).click();
   });
+
   it("Lack of First Name - TC_EX_01", () => {
     cy.get(formSelectors.lastName).click().type("Smith");
     cy.get(formSelectors.mobile).click().type("0500500500");
@@ -76,6 +79,7 @@ describe("tests", () => {
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
   });
+
   it("Lack of Last Name - TC_EX_02", () => {
     cy.get(formSelectors.name).click().type("Jane");
     cy.get(formSelectors.mobile).click().type("0500500500");
@@ -86,23 +90,33 @@ describe("tests", () => {
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
   });
-  it.only("Lack of Gender - TC_EX_03", () => {
+
+  it("Lack of Gender - TC_EX_03", () => {
     cy.get(formSelectors.name).click().type("Jane");
     cy.get(formSelectors.lastName).click().type("Smith");
     cy.get(formSelectors.mobile).click().type("9876543210");
     cy.get(formSelectors.submit).click();
     cy.get(formSelectors.submitMessage).should("not.exist");
-
     cy.get(formSelectors.inputGender)
       .find(".custom-control-input:invalid")
-      .should("have.length", 3)
-      .then(($el) => {
-        console.log("$el", $el);
-        console.log("$el[0]", $el[0]);
-        console.log("$el[1]", $el[1]);
-        console.log("$el[2]", $el[2]);
-      });
+      .should("have.length", 3);
+    cy.get(formSelectors.gender1Male).should(
+      "have.css",
+      "color",
+      "rgb(220, 53, 69)"
+    );
+    cy.get(formSelectors.gender2Female).should(
+      "have.css",
+      "color",
+      "rgb(220, 53, 69)"
+    );
+    cy.get(formSelectors.gender3Other).should(
+      "have.css",
+      "color",
+      "rgb(220, 53, 69)"
+    );
   });
+
   it('Lack of data in "Mobile" field - TC_EX_04', () => {
     cy.get(formSelectors.name).click().type("Jane");
     cy.get(formSelectors.lastName).click().type("Smith");
@@ -113,6 +127,7 @@ describe("tests", () => {
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
   });
+
   it('String in "Mobile" field - TC_EX_05', () => {
     cy.get(formSelectors.name).click().type("Jane");
     cy.get(formSelectors.lastName).click().type("Smith");
@@ -124,6 +139,7 @@ describe("tests", () => {
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
   });
+
   it('Invalid data in "Date of birth" field - TC_EX_06', () => {
     cy.get(formSelectors.name).click().type("Jane");
     cy.get(formSelectors.lastName).click().type("Smith");
