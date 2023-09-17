@@ -1,4 +1,4 @@
-export const formSelectors = {
+export const automationPracticeFormSelectors = {
   name: "[id='firstName']",
   lastName: "[id='lastName']",
   email: "[id='userEmail']",

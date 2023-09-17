@@ -1,4 +1,4 @@
-const { formSelectors } = require("../fixtures/selectors.cy");
+const { automationPracticeFormSelectors } = require("../fixtures/selectors.cy");
 
 describe("tests", () => {
   beforeEach(() => {
@@ -13,33 +13,37 @@ describe("tests", () => {
   });
 
   it("Valid Student Registration With Complete Data - TC_01", () => {
-    cy.get(formSelectors.name).click().type("John");
-    cy.get(formSelectors.lastName).click().type("Smith");
-    cy.get(formSelectors.email).click().type("test@gmail.com");
-    cy.get(formSelectors.gender1Male).click();
-    cy.get(formSelectors.mobile).click().type("0123456789");
-    cy.get(formSelectors.dateOfBirth).click();
-    cy.get(formSelectors.monthDropdown).select("January");
-    cy.get(formSelectors.yearDropdown).select("1990");
-    cy.get(formSelectors.dayOfTheMonth).click();
-    cy.get(formSelectors.background).click();
-    cy.get(formSelectors.subjects)
+    cy.get(automationPracticeFormSelectors.name).click().type("John");
+    cy.get(automationPracticeFormSelectors.lastName).click().type("Smith");
+    cy.get(automationPracticeFormSelectors.email)
+      .click()
+      .type("test@gmail.com");
+    cy.get(automationPracticeFormSelectors.gender1Male).click();
+    cy.get(automationPracticeFormSelectors.mobile).click().type("0123456789");
+    cy.get(automationPracticeFormSelectors.dateOfBirth).click();
+    cy.get(automationPracticeFormSelectors.monthDropdown).select("January");
+    cy.get(automationPracticeFormSelectors.yearDropdown).select("1990");
+    cy.get(automationPracticeFormSelectors.dayOfTheMonth).click();
+    cy.get(automationPracticeFormSelectors.background).click();
+    cy.get(automationPracticeFormSelectors.subjects)
       .click()
       .type("Maths" + "{enter}");
-    cy.get(formSelectors.hobby1).click();
-    cy.get(formSelectors.chooseFileButton).click().selectFile("test.jpg");
-    cy.get(formSelectors.currentAddress).type(
+    cy.get(automationPracticeFormSelectors.hobby1).click();
+    cy.get(automationPracticeFormSelectors.chooseFileButton)
+      .click()
+      .selectFile("test.jpg");
+    cy.get(automationPracticeFormSelectors.currentAddress).type(
       "Azalia str 23, 77222 Massachusetts"
     );
-    cy.get(formSelectors.state)
+    cy.get(automationPracticeFormSelectors.state)
       .click()
       .type("Uttar Pradesh" + "{enter}");
-    cy.get(formSelectors.city)
+    cy.get(automationPracticeFormSelectors.city)
       .click()
       .type("Lucknow" + "{enter}");
-    cy.get(formSelectors.submit).click();
-    cy.get(formSelectors.submitMessage);
-    cy.get(formSelectors.table).within(() => {
+    cy.get(automationPracticeFormSelectors.submit).click();
+    cy.get(automationPracticeFormSelectors.submitMessage);
+    cy.get(automationPracticeFormSelectors.table).within(() => {
       cy.get("td").eq(1).contains("John Smith");
       cy.get("td").eq(3).contains("test@gmail.com");
       cy.get("td").eq(5).contains("Male");
@@ -51,34 +55,34 @@ describe("tests", () => {
       cy.get("td").eq(17).contains("Azalia str 23, 77222 Massachusetts");
       cy.get("td").eq(19).contains("Uttar Pradesh Lucknow");
     });
-    cy.get(formSelectors.closeTable).click();
+    cy.get(automationPracticeFormSelectors.closeTable).click();
   });
 
   it("Valid Student Registration With Required Valid Data - TC_02", () => {
-    cy.get(formSelectors.name).click().type("Jane");
-    cy.get(formSelectors.lastName).click().type("Smith");
-    cy.get(formSelectors.gender2Female).click();
-    cy.get(formSelectors.mobile).click().type("9876543210");
-    cy.get(formSelectors.submit).click();
-    cy.get(formSelectors.submitMessage);
-    cy.get(formSelectors.table).within(() => {
+    cy.get(automationPracticeFormSelectors.name).click().type("Jane");
+    cy.get(automationPracticeFormSelectors.lastName).click().type("Smith");
+    cy.get(automationPracticeFormSelectors.gender2Female).click();
+    cy.get(automationPracticeFormSelectors.mobile).click().type("9876543210");
+    cy.get(automationPracticeFormSelectors.submit).click();
+    cy.get(automationPracticeFormSelectors.submitMessage);
+    cy.get(automationPracticeFormSelectors.table).within(() => {
       cy.get("td").eq(1).contains("Jane Smith");
       cy.get("td").eq(7).contains("9876543210");
       cy.get("td").eq(5).contains("Female");
     });
-    cy.get(formSelectors.closeTable).click();
+    cy.get(automationPracticeFormSelectors.closeTable).click();
   });
 
   it("Lack of First Name - TC_EX_01", () => {
-    cy.get(formSelectors.lastName).click().type("Smith");
-    cy.get(formSelectors.gender2Female).click();
-    cy.get(formSelectors.mobile).click().type("0500500500");
-    cy.get(formSelectors.submit).click();
-    cy.get(formSelectors.submitMessage).should("not.exist");
-    cy.get(formSelectors.name)
+    cy.get(automationPracticeFormSelectors.lastName).click().type("Smith");
+    cy.get(automationPracticeFormSelectors.gender2Female).click();
+    cy.get(automationPracticeFormSelectors.mobile).click().type("0500500500");
+    cy.get(automationPracticeFormSelectors.submit).click();
+    cy.get(automationPracticeFormSelectors.submitMessage).should("not.exist");
+    cy.get(automationPracticeFormSelectors.name)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
-    cy.get(formSelectors.name).should(
+    cy.get(automationPracticeFormSelectors.name).should(
       "have.css",
       "border-color",
       "rgb(220, 53, 69)"
@@ -86,15 +90,15 @@ describe("tests", () => {
   });
 
   it("Lack of Last Name - TC_EX_02", () => {
-    cy.get(formSelectors.name).click().type("Jane");
-    cy.get(formSelectors.gender2Female).click();
-    cy.get(formSelectors.mobile).click().type("0500500500");
-    cy.get(formSelectors.submit).click();
-    cy.get(formSelectors.submitMessage).should("not.exist");
-    cy.get(formSelectors.lastName)
+    cy.get(automationPracticeFormSelectors.name).click().type("Jane");
+    cy.get(automationPracticeFormSelectors.gender2Female).click();
+    cy.get(automationPracticeFormSelectors.mobile).click().type("0500500500");
+    cy.get(automationPracticeFormSelectors.submit).click();
+    cy.get(automationPracticeFormSelectors.submitMessage).should("not.exist");
+    cy.get(automationPracticeFormSelectors.lastName)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
-    cy.get(formSelectors.lastName).should(
+    cy.get(automationPracticeFormSelectors.lastName).should(
       "have.css",
       "border-color",
       "rgb(220, 53, 69)"
@@ -102,25 +106,25 @@ describe("tests", () => {
   });
 
   it("Lack of Gender - TC_EX_03", () => {
-    cy.get(formSelectors.name).click().type("Jane");
-    cy.get(formSelectors.lastName).click().type("Smith");
-    cy.get(formSelectors.mobile).click().type("9876543210");
-    cy.get(formSelectors.submit).click();
-    cy.get(formSelectors.submitMessage).should("not.exist");
-    cy.get(formSelectors.inputGender)
+    cy.get(automationPracticeFormSelectors.name).click().type("Jane");
+    cy.get(automationPracticeFormSelectors.lastName).click().type("Smith");
+    cy.get(automationPracticeFormSelectors.mobile).click().type("9876543210");
+    cy.get(automationPracticeFormSelectors.submit).click();
+    cy.get(automationPracticeFormSelectors.submitMessage).should("not.exist");
+    cy.get(automationPracticeFormSelectors.inputGender)
       .find(".custom-control-input:invalid")
       .should("have.length", 3);
-    cy.get(formSelectors.gender1Male).should(
+    cy.get(automationPracticeFormSelectors.gender1Male).should(
       "have.css",
       "color",
       "rgb(220, 53, 69)"
     );
-    cy.get(formSelectors.gender2Female).should(
+    cy.get(automationPracticeFormSelectors.gender2Female).should(
       "have.css",
       "color",
       "rgb(220, 53, 69)"
     );
-    cy.get(formSelectors.gender3Other).should(
+    cy.get(automationPracticeFormSelectors.gender3Other).should(
       "have.css",
       "color",
       "rgb(220, 53, 69)"
@@ -128,15 +132,15 @@ describe("tests", () => {
   });
 
   it('Lack of data in "Mobile" field - TC_EX_04', () => {
-    cy.get(formSelectors.name).click().type("Jane");
-    cy.get(formSelectors.lastName).click().type("Smith");
-    cy.get(formSelectors.gender2Female).click();
-    cy.get(formSelectors.submit).click();
-    cy.get(formSelectors.submitMessage).should("not.exist");
-    cy.get(formSelectors.mobile)
+    cy.get(automationPracticeFormSelectors.name).click().type("Jane");
+    cy.get(automationPracticeFormSelectors.lastName).click().type("Smith");
+    cy.get(automationPracticeFormSelectors.gender2Female).click();
+    cy.get(automationPracticeFormSelectors.submit).click();
+    cy.get(automationPracticeFormSelectors.submitMessage).should("not.exist");
+    cy.get(automationPracticeFormSelectors.mobile)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
-    cy.get(formSelectors.mobile).should(
+    cy.get(automationPracticeFormSelectors.mobile).should(
       "have.css",
       "border-color",
       "rgb(220, 53, 69)"
@@ -144,16 +148,16 @@ describe("tests", () => {
   });
 
   it('Alphabet characters in "Mobile" field - TC_EX_05', () => {
-    cy.get(formSelectors.name).click().type("Jane");
-    cy.get(formSelectors.lastName).click().type("Smith");
-    cy.get(formSelectors.gender2Female).click();
-    cy.get(formSelectors.mobile).click().type("ABCDEFGHIJ");
-    cy.get(formSelectors.submit).click();
-    cy.get(formSelectors.submitMessage).should("not.exist");
-    cy.get(formSelectors.mobile)
+    cy.get(automationPracticeFormSelectors.name).click().type("Jane");
+    cy.get(automationPracticeFormSelectors.lastName).click().type("Smith");
+    cy.get(automationPracticeFormSelectors.gender2Female).click();
+    cy.get(automationPracticeFormSelectors.mobile).click().type("ABCDEFGHIJ");
+    cy.get(automationPracticeFormSelectors.submit).click();
+    cy.get(automationPracticeFormSelectors.submitMessage).should("not.exist");
+    cy.get(automationPracticeFormSelectors.mobile)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
-    cy.get(formSelectors.mobile).should(
+    cy.get(automationPracticeFormSelectors.mobile).should(
       "have.css",
       "border-color",
       "rgb(220, 53, 69)"
@@ -161,16 +165,16 @@ describe("tests", () => {
   });
 
   it('Less than required number of digits in "Mobile" field - TC_EX_06', () => {
-    cy.get(formSelectors.name).click().type("Jane");
-    cy.get(formSelectors.lastName).click().type("Smith");
-    cy.get(formSelectors.gender2Female).click();
-    cy.get(formSelectors.mobile).click().type("12345678");
-    cy.get(formSelectors.submit).click();
-    cy.get(formSelectors.submitMessage).should("not.exist");
-    cy.get(formSelectors.mobile)
+    cy.get(automationPracticeFormSelectors.name).click().type("Jane");
+    cy.get(automationPracticeFormSelectors.lastName).click().type("Smith");
+    cy.get(automationPracticeFormSelectors.gender2Female).click();
+    cy.get(automationPracticeFormSelectors.mobile).click().type("12345678");
+    cy.get(automationPracticeFormSelectors.submit).click();
+    cy.get(automationPracticeFormSelectors.submitMessage).should("not.exist");
+    cy.get(automationPracticeFormSelectors.mobile)
       .then(($el) => $el[0].checkValidity())
       .should("be.false");
-    cy.get(formSelectors.mobile).should(
+    cy.get(automationPracticeFormSelectors.mobile).should(
       "have.css",
       "border-color",
       "rgb(220, 53, 69)"
@@ -178,35 +182,35 @@ describe("tests", () => {
   });
 
   it('Invalid data in "Date of birth" field - TC_EX_07', () => {
-    cy.get(formSelectors.name).click().type("Jane");
-    cy.get(formSelectors.lastName).click().type("Smith");
-    cy.get(formSelectors.gender2Female).click();
-    cy.get(formSelectors.mobile).click().type("9876543210");
-    cy.get(formSelectors.dateOfBirth).click();
-    cy.get(formSelectors.monthDropdown).select("January");
-    cy.get(formSelectors.yearDropdown).select("2030");
-    cy.get(formSelectors.dayOfTheMonth).click();
-    cy.get(formSelectors.background).click();
-    cy.get(formSelectors.submit).click();
-    cy.get(formSelectors.submitMessage).should("not.exist");
+    cy.get(automationPracticeFormSelectors.name).click().type("Jane");
+    cy.get(automationPracticeFormSelectors.lastName).click().type("Smith");
+    cy.get(automationPracticeFormSelectors.gender2Female).click();
+    cy.get(automationPracticeFormSelectors.mobile).click().type("9876543210");
+    cy.get(automationPracticeFormSelectors.dateOfBirth).click();
+    cy.get(automationPracticeFormSelectors.monthDropdown).select("January");
+    cy.get(automationPracticeFormSelectors.yearDropdown).select("2030");
+    cy.get(automationPracticeFormSelectors.dayOfTheMonth).click();
+    cy.get(automationPracticeFormSelectors.background).click();
+    cy.get(automationPracticeFormSelectors.submit).click();
+    cy.get(automationPracticeFormSelectors.submitMessage).should("not.exist");
   });
 
   it("Remove tag from 'Subjects' - TC_EX_08", () => {
-    cy.get(formSelectors.name).click().type("Jane");
-    cy.get(formSelectors.lastName).click().type("Smith");
-    cy.get(formSelectors.gender2Female).click();
-    cy.get(formSelectors.mobile).click().type("9876543210");
-    cy.get(formSelectors.subjects)
+    cy.get(automationPracticeFormSelectors.name).click().type("Jane");
+    cy.get(automationPracticeFormSelectors.lastName).click().type("Smith");
+    cy.get(automationPracticeFormSelectors.gender2Female).click();
+    cy.get(automationPracticeFormSelectors.mobile).click().type("9876543210");
+    cy.get(automationPracticeFormSelectors.subjects)
       .click()
       .type("Maths" + "{enter}");
-    cy.get(formSelectors.subjectRemove).click();
-    cy.get(formSelectors.submit).click();
-    cy.get(formSelectors.submitMessage);
-    cy.get(formSelectors.table).within(() => {
+    cy.get(automationPracticeFormSelectors.subjectRemove).click();
+    cy.get(automationPracticeFormSelectors.submit).click();
+    cy.get(automationPracticeFormSelectors.submitMessage);
+    cy.get(automationPracticeFormSelectors.table).within(() => {
       cy.get("td").eq(1).contains("Jane Smith");
       cy.get("td").eq(7).contains("9876543210");
       cy.get("td").eq(5).contains("Female");
     });
-    cy.get(formSelectors.closeTable).click();
+    cy.get(automationPracticeFormSelectors.closeTable).click();
   });
 });
